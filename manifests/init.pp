@@ -37,6 +37,12 @@
 # [*puppetmaster_modulepath*]
 #   Defines the module path.
 #
+# [*puppetmaster_manifestdir*]
+#   Defines the manifest dir.
+#
+# [*puppetmaster_manifest*]
+#   Defines the manifest.
+#
 # === Variables
 #
 # === Examples
@@ -50,6 +56,8 @@
 #    puppetmaster_reporturl            => 'http://puppet1.puppet.test:8080/reports/upload',
 #    puppetmaster_facts_terminus       => 'PuppetDB',
 #    puppetmaster_modulepath           => '$confdir/modules:$confdir/modules-0',
+#    puppetmaster_manifestdir          => '$confdir/manifests',
+#    puppetmaster_manifest             => '$confdir/manifests/site.pp',
 #  }
 #
 # === Authors
@@ -73,6 +81,8 @@ class puppetmaster (
   $puppetmaster_facts_terminus       = '',
   $puppetmaster_modulepath           = '',
   $puppetmaster_repo_version         = '6-7',
+  $puppetmaster_manifestdir          = '',
+  $puppetmaster_manifest             = '',
 ) {
 
   include puppetmaster::params
@@ -106,6 +116,22 @@ class puppetmaster (
       section => 'main',
       setting => 'modulepath',
       value   => $puppetmaster_modulepath,
+    }
+  }
+
+  if ($puppetmaster_manifestdir) {
+    ini_setting { 'puppetmaster_manifestdir':
+      section => 'main',
+      setting => 'manifestdir',
+      value   => $puppetmaster_manifestdir,
+    }
+  }
+
+  if ($puppetmaster_manifest) {
+    ini_setting { 'puppetmaster_manifest':
+      section => 'main',
+      setting => 'manifest',
+      value   => $puppetmaster_manifest,
     }
   }
 
