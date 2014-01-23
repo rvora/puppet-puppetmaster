@@ -13,7 +13,7 @@
 class puppetmaster::params {
 
   case $::operatingsystem {
-    'centos', 'redhat', 'fedora': {
+    'centos', 'redhat', 'fedora', 'Amazon': {
       $puppetmaster_package_name  = 'puppet-server'
       $puppetmaster_service_name  = 'puppetmaster'
       $puppetmaster_passenger_package = 'puppetmaster-passenger'
