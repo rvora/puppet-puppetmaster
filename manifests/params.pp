@@ -21,6 +21,12 @@ class puppetmaster::params {
         ensure   => present,
         source   => "http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-${puppetmaster::puppetmaster_repo_version}.noarch.rpm",
         provider => rpm,
+	before   => Ini_setting['puppetlabsrepo-priority'],
+      }
+      ini_setting { "puppetlabsrepo-priority":
+        section => 'puppetlabs-products',
+        setting => 'priority',
+        value   => '1',
       }
     }
     'ubuntu', 'debian': {
