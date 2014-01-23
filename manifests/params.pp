@@ -24,6 +24,8 @@ class puppetmaster::params {
 	before   => Ini_setting['puppetlabsrepo-priority'],
       }
       ini_setting { "puppetlabsrepo-priority":
+        path    => '/etc/yum.repos.d/puppetlabs.repo',
+	ensure  => present,
         section => 'puppetlabs-products',
         setting => 'priority',
         value   => '1',
